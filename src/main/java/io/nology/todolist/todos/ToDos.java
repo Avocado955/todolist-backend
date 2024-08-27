@@ -11,10 +11,13 @@ public class ToDos extends BaseEntity {
 
   // Properties
   @Column
-  private String title;
+  private String task;
 
-  @Column
-  private String description;
+  // @Column
+  // private String title;
+
+  // @Column
+  // private String description;
 
   @Column // Change this eventually to a many to one (one category can have many ToDos)
   private String category;
@@ -22,13 +25,17 @@ public class ToDos extends BaseEntity {
   @Column
   private Boolean isCompleted;
 
-  public String getTitle() {
-    return title;
+  public String getTask() {
+    return task;
   }
 
-  public String getDescription() {
-    return description;
-  }
+  // public String getTitle() {
+  // return title;
+  // }
+
+  // public String getDescription() {
+  // return description;
+  // }
 
   public String getCategory() {
     return category;
@@ -38,13 +45,17 @@ public class ToDos extends BaseEntity {
     return isCompleted;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
+  public void setTask(String task) {
+    this.task = task;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+  // public void setTitle(String title) {
+  // this.title = title;
+  // }
+
+  // public void setDescription(String description) {
+  // this.description = description;
+  // }
 
   public void setCategory(String category) {
     this.category = category;
