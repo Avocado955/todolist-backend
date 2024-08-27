@@ -1,8 +1,17 @@
 package io.nology.todolist.todos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.nology.todolist.category.Category;
 import io.nology.todolist.common.BaseEntity;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "todos")
 public class ToDos extends BaseEntity {
 
   // Constructor
@@ -19,8 +28,10 @@ public class ToDos extends BaseEntity {
   // @Column
   // private String description;
 
-  @Column // Change this eventually to a many to one (one category can have many ToDos)
-  private String category;
+  @ManyToOne
+  @JoinColumn(name = "category_id")
+  @JsonIgnoreProperties("todos") // Change this eventually to a many to one (one category can have many ToDos)
+  private Category category;
 
   @Column
   private Boolean isCompleted;
@@ -37,7 +48,7 @@ public class ToDos extends BaseEntity {
   // return description;
   // }
 
-  public String getCategory() {
+  public Category getCategory() {
     return category;
   }
 
@@ -57,7 +68,7 @@ public class ToDos extends BaseEntity {
   // this.description = description;
   // }
 
-  public void setCategory(String category) {
+  public void setCategory(Category category) {
     this.category = category;
   }
 
