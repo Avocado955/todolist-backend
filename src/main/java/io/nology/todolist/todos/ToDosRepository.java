@@ -1,5 +1,7 @@
 package io.nology.todolist.todos;
 
-public class ToDosRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ToDosRepository extends JpaRepository<ToDos, Long> {
 
 }
