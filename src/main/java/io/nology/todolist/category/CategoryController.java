@@ -21,9 +21,8 @@ public class CategoryController {
   private CategoryService categoryService;
 
   @PostMapping()
-  public ResponseEntity<Category> createCategory(@Valid @RequestBody CreateCategoryDTO data) {
+  public ResponseEntity<Category> createCategory(@Valid @RequestBody CreateCategoryDTO data) throws Exception {
     Category newCategory = this.categoryService.create(data);
-
     return new ResponseEntity<>(newCategory, HttpStatus.OK);
   }
 

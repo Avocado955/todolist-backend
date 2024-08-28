@@ -13,9 +13,14 @@ public class CategoryService {
   @Autowired
   private CategoryRepository repo;
 
-  public Category create(@Valid CreateCategoryDTO data) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'create'");
+  public Category create(@Valid CreateCategoryDTO data) throws Exception {
+    String formattedName = data.getName().trim().toLowerCase();
+    if (repo.existsByName(formattedName)) {
+      throw new Exception("The Category with name " + data.getName() + " already exists");
+    }
+    Category newCategory = new Category();
+    newCategory.setName(formattedName);
+    return this.repo.save(newCategory);
   }
 
   public List<Category> findAll() {
