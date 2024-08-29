@@ -19,9 +19,9 @@ public class ToDosService {
   @Autowired
   private CategoryService categoryService;
 
-  public ToDos createToDo(@Valid CreateToDosDTO data) throws Exception {
-    ToDos newToDo = new ToDos();
-    newToDo.setTask(data.getTask());
+  public ToDo createToDo(@Valid CreateToDosDTO data) throws Exception {
+    ToDo newToDo = new ToDo();
+    newToDo.setTask(data.getTask().trim());
     newToDo.setIsCompleted(data.getIsCompleted());
     Optional<Category> categoryResult = this.categoryService.findById(data.getCategoryId());
     if (categoryResult.isEmpty()) {
@@ -32,21 +32,46 @@ public class ToDosService {
     return this.repo.save(newToDo);
   }
 
-  public List<ToDos> findAll() {
+  public List<ToDo> findAll() {
     return this.repo.findAll();
   }
 
-  public Optional<ToDos> findById(Long id) {
+  public Optional<ToDo> findById(Long id) {
     return this.repo.findById(id);
   }
 
+  public Optional<ToDo> updateToDoById(Long id, @Valid UpdateToDosDTO data) throws Exception {
+    Optional<ToDo> result = this.findById(id);
+    if (result.isEmpty()) {
+      return result;
+    }
+    ToDo foundToDo = result.get();
+
+    if (data.getTask() != null) {
+      foundToDo.setTask(data.getTask().trim());
+    }
+    if (data.getIsCompleted() != null) {
+      foundToDo.setIsCompleted(data.getIsCompletedBoolean());
+    }
+    if (data.getCategoryId() != null) {
+      Optional<Category> categoryResult = this.categoryService.findById(data.getCategoryId());
+      if (categoryResult.isEmpty()) {
+        throw new Exception("The Category with id: " + data.getCategoryId() + " does not exist");
+      } else {
+        foundToDo.setCategory(categoryResult.get());
+      }
+    }
+
+    ToDo updateToDo = this.repo.save(foundToDo);
+    return Optional.of(updateToDo);
+  }
+
   public boolean deleteById(Long id) {
-    Optional<ToDos> result = this.findById(id);
+    Optional<ToDo> result = this.findById(id);
     if (result.isEmpty()) {
       return false;
     }
     this.repo.delete(result.get());
     return true;
   }
-
 }

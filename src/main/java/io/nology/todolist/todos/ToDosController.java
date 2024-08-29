@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
@@ -24,22 +25,30 @@ public class ToDosController {
   private ToDosService toDosService;
 
   @PostMapping()
-  public ResponseEntity<ToDos> createToDo(@Valid @RequestBody CreateToDosDTO data) throws Exception {
-    ToDos createdToDo = this.toDosService.createToDo(data);
+  public ResponseEntity<ToDo> createToDo(@Valid @RequestBody CreateToDosDTO data) throws Exception {
+    ToDo createdToDo = this.toDosService.createToDo(data);
     return new ResponseEntity<>(createdToDo, HttpStatus.CREATED);
   }
 
   @GetMapping()
-  public ResponseEntity<List<ToDos>> getAllTodos() {
-    List<ToDos> allToDos = this.toDosService.findAll();
+  public ResponseEntity<List<ToDo>> getAllTodos() {
+    List<ToDo> allToDos = this.toDosService.findAll();
     return new ResponseEntity<>(allToDos, HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<ToDos> getToDoById(@PathVariable Long id) throws Exception {
-    Optional<ToDos> result = this.toDosService.findById(id);
-    ToDos foundPost = result.orElseThrow(() -> new Exception("Todo with id: " + id + " not found"));
+  public ResponseEntity<ToDo> getToDoById(@PathVariable Long id) throws Exception {
+    Optional<ToDo> result = this.toDosService.findById(id);
+    ToDo foundPost = result.orElseThrow(() -> new Exception("Todo with id: " + id + " not found"));
     return new ResponseEntity<>(foundPost, HttpStatus.OK);
+  }
+
+  @PatchMapping("/{id}")
+  public ResponseEntity<ToDo> updateToDoById(@PathVariable Long id, @Valid @RequestBody UpdateToDosDTO data)
+      throws Exception {
+    Optional<ToDo> result = this.toDosService.updateToDoById(id, data);
+    ToDo foundToDo = result.orElseThrow(() -> new Exception("ToDo not found with id: " + id));
+    return new ResponseEntity<>(foundToDo, HttpStatus.OK);
   }
 
   @DeleteMapping("/{id}")

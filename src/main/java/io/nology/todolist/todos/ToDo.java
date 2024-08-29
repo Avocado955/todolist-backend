@@ -12,10 +12,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "todos")
-public class ToDos extends BaseEntity {
+public class ToDo extends BaseEntity {
 
   // Constructor
-  public ToDos() {
+  public ToDo() {
   }
 
   // Properties
