@@ -1,5 +1,6 @@
 package io.nology.todolist.todos;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,14 @@ public class ToDosService {
     }
     newToDo.setCategory(categoryResult.get());
     return this.repo.save(newToDo);
+  }
+
+  public List<ToDos> findAll() {
+    return this.repo.findAll();
+  }
+
+  public Optional<ToDos> findById(Long id) {
+    return this.repo.findById(id);
   }
 
 }
