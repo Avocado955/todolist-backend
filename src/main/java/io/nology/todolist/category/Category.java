@@ -5,7 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import io.nology.todolist.common.BaseEntity;
-import io.nology.todolist.todos.ToDos;
+import io.nology.todolist.todos.ToDo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -20,7 +20,7 @@ public class Category extends BaseEntity {
 
   @OneToMany(mappedBy = "category")
   @JsonIgnoreProperties("category")
-  private List<ToDos> todos;
+  private List<ToDo> todos;
 
   public Category() {
   }
@@ -29,7 +29,7 @@ public class Category extends BaseEntity {
     return name;
   }
 
-  public List<ToDos> getTodos() {
+  public List<ToDo> getTodos() {
     return todos;
   }
 
@@ -37,7 +37,7 @@ public class Category extends BaseEntity {
     this.name = name;
   }
 
-  public void setTodos(List<ToDos> todos) {
+  public void setTodos(List<ToDo> todos) {
     this.todos = todos;
   }
 

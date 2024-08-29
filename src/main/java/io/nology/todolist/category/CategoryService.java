@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 
 @Service
 public class CategoryService {
+
   @Autowired
   private CategoryRepository repo;
 
@@ -29,5 +30,19 @@ public class CategoryService {
 
   public Optional<Category> findById(Long categoryId) {
     return this.repo.findById(categoryId);
+  }
+
+  public boolean categoryExistsByName(String categoryName) {
+    return this.repo.existsByName(categoryName);
+  }
+
+  public Optional<Category> getCategoryByName(String name) {
+    List<Category> allCategories = this.repo.findAll();
+    for (Category category : allCategories) {
+      if (category.getName() == name) {
+        return Optional.of(category);
+      }
+    }
+    return Optional.empty();
   }
 }
