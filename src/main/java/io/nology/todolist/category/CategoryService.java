@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.nology.todolist.common.ValidationErrors;
+import io.nology.todolist.common.exceptions.ServiceValidationException;
 import jakarta.validation.Valid;
 
 @Service
@@ -15,9 +17,13 @@ public class CategoryService {
   private CategoryRepository repo;
 
   public Category create(@Valid CreateCategoryDTO data) throws Exception {
+    ValidationErrors errors = new ValidationErrors();
     String formattedName = data.getName().trim().toLowerCase();
     if (repo.existsByName(formattedName)) {
-      throw new Exception("The Category with name " + data.getName() + " already exists");
+      errors.addError("category", String.format("Category with name %s already exists", data.getName()));
+    }
+    if (errors.hasErrors()) {
+      throw new ServiceValidationException(errors);
     }
     Category newCategory = new Category();
     newCategory.setName(formattedName);

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.nology.todolist.common.exceptions.NotFoundException;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +40,7 @@ public class ToDosController {
   @GetMapping("/{id}")
   public ResponseEntity<ToDo> getToDoById(@PathVariable Long id) throws Exception {
     Optional<ToDo> result = this.toDosService.findById(id);
-    ToDo foundPost = result.orElseThrow(() -> new Exception("Todo with id: " + id + " not found"));
+    ToDo foundPost = result.orElseThrow(() -> new NotFoundException("Todo with id: " + id + " not found"));
     return new ResponseEntity<>(foundPost, HttpStatus.OK);
   }
 
@@ -47,7 +48,7 @@ public class ToDosController {
   public ResponseEntity<ToDo> updateToDoById(@PathVariable Long id, @Valid @RequestBody UpdateToDosDTO data)
       throws Exception {
     Optional<ToDo> result = this.toDosService.updateToDoById(id, data);
-    ToDo foundToDo = result.orElseThrow(() -> new Exception("ToDo not found with id: " + id));
+    ToDo foundToDo = result.orElseThrow(() -> new NotFoundException("ToDo not found with id: " + id));
     return new ResponseEntity<>(foundToDo, HttpStatus.OK);
   }
 
@@ -55,7 +56,7 @@ public class ToDosController {
   public ResponseEntity<Void> deleteToDoById(@PathVariable Long id) throws Exception {
     boolean deleteSuccessful = this.toDosService.deleteById(id);
     if (!deleteSuccessful) {
-      throw new Exception("Could not find ToDo with id: " + id);
+      throw new NotFoundException("Could not find ToDo with id: " + id);
     }
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
