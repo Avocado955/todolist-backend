@@ -89,7 +89,6 @@ public class CategoryEndToEndTest {
         .post("/categories")
         .then()
         .statusCode(HttpStatus.BAD_REQUEST.value())
-        .body("errors.name[0]", equalTo("category with name 'code' already exists")); // This test current fails as
-                                                                                      // nothing is given back
+        .body("errors.category[0]", equalTo("Category with name code already exists"));
   }
 }

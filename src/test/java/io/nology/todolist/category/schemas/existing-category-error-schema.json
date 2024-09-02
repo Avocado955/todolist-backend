@@ -5,14 +5,14 @@
     "errors": {
       "type": "object",
       "properties": {
-        "name": {
+        "field": {
           "type": "array",
           "items": {
             "type": "string"
           }
         }
       },
-      "required": ["name"]
+      "required": ["field"]
     },
     "empty": {
       "type": "boolean"
