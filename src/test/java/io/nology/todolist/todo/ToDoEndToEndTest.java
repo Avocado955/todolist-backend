@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Contains;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -97,5 +98,42 @@ public class ToDoEndToEndTest {
         .statusCode(HttpStatus.OK.value())
         .body("$", hasSize(3))
         .body("task", hasItems("test task 1", "some other task", "clean the kitchen"));
+  }
+
+  @Test
+  public void createToDo_failure() {
+    CreateToDosDTO data = new CreateToDosDTO();
+    data.setCategoryId(3L);
+    data.setTask("clean the kitchen");
+    data.setIsCompleted(false);
+
+    given()
+        .contentType(ContentType.JSON)
+        .body(data)
+        .when()
+        .post("/todos")
+        .then()
+        .statusCode(HttpStatus.BAD_REQUEST.value())
+        .body("errors.category[0]", equalTo("Category with id 3 does not exist"));
+  }
+
+  @Test
+  public void deleteById_success() {
+    given()
+        .when()
+        .delete("/todos/1")
+        .then()
+        .statusCode(HttpStatus.NO_CONTENT.value());
+  }
+
+  @Test
+  public void deleteById_failure() {
+    given()
+        .when()
+        .delete("/todos/3")
+        .then()
+        .statusCode(HttpStatus.NOT_FOUND.value())
+        .contentType(ContentType.TEXT)
+        .body(containsString("Could not find ToDo with id: 3"));
   }
 }
