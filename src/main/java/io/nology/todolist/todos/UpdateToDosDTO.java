@@ -31,4 +31,16 @@ public class UpdateToDosDTO {
     return this.isCompleted == 0 ? false : true;
   }
 
+  public void setTask(String task) {
+    this.task = task;
+  }
+
+  public void setCategoryId(Long categoryId) {
+    this.categoryId = categoryId;
+  }
+
+  public void setIsCompleted(Integer isCompleted) {
+    this.isCompleted = isCompleted;
+  }
+
 }

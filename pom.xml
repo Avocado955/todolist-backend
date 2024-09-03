@@ -65,6 +65,19 @@
 			<artifactId>rest-assured</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- These 2 dependencies are for the Json Schema testing -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-path</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>json-schema-validator</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- If not using Json Schema testing, no need for these -->
+
 		<!-- In memory database H2 for testing -->
 		<!-- Trade off, faster testing, difference in testing and main environment -->
 		<dependency>

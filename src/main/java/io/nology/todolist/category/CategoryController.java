@@ -23,7 +23,7 @@ public class CategoryController {
   @PostMapping()
   public ResponseEntity<Category> createCategory(@Valid @RequestBody CreateCategoryDTO data) throws Exception {
     Category newCategory = this.categoryService.create(data);
-    return new ResponseEntity<>(newCategory, HttpStatus.OK);
+    return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
   }
 
   @GetMapping()
