@@ -106,13 +106,15 @@ Create an API to be integrated with your To Do UI project, that allows you to st
 ### 3/9/2024 - Testing Continued
 
 -   Adds the Github Actions for a basic continuous intergration testing on Push and Pull Requests.
-
+-   Implements the rest of the tests for the ToDoService Unit Tests
+-   Implemented the rest of the tests for the CategoryService Unit Test
 
 ---
 
 ## What did you struggle with?
 
 -   Implementing end to end testing for the todos. Understanding the syntax and ensuring it covered all the edge cases as well
+-   Fixing memory related issues that arose with the unit testing as the service itself instancated a variable and so couldn't check that variable exactly
 
 ---
 
