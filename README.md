@@ -94,13 +94,20 @@ Create an API to be integrated with your To Do UI project, that allows you to st
 -   Implemented a custom Global Exception Handler to handle all the Exceptions and provide a more meaningful error message back to the user
 -   Added dependecies for End to End and unit testing
 -   Created 2 End to End tests for the Category
+-   Adds End to End test for Post-success
+-   Adds broken test for End to End Post-failure
 
 
 ### 2/9/2024 - Testing
 
--   Extended the expiry time of JWT tokens on the backend
--   Added users to cohort response payload
--   Centralized API base URL on frontend using the proxy `package.json` property
+-   Fixes broken E2E test for Post-failure due to error not being name but category and field instead of name in the schema testing.
+-   Added the structure for the ToDo testing
+
+### 3/9/2024 - Testing Continued
+
+-   Adds the Github Actions for a basic continuous intergration testing on Push and Pull Requests.
+
+
 ---
 
 ## What did you struggle with?
