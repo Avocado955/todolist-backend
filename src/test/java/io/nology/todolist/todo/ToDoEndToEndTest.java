@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Contains;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -17,7 +16,6 @@ import io.nology.todolist.category.CategoryRepository;
 import io.nology.todolist.todos.CreateToDosDTO;
 import io.nology.todolist.todos.ToDo;
 import io.nology.todolist.todos.ToDosRepository;
-import io.nology.todolist.todos.ToDosService;
 import io.nology.todolist.todos.UpdateToDosDTO;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;

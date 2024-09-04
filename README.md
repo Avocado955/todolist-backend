@@ -103,11 +103,15 @@ Create an API to be integrated with your To Do UI project, that allows you to st
 -   Fixes broken E2E test for Post-failure due to error not being name but category and field instead of name in the schema testing.
 -   Added the structure for the ToDo testing
 
-### 3/9/2024 - Testing Continued
+### 3/9/2024 - Testing Category and ToDo Continued
 
 -   Adds the Github Actions for a basic continuous intergration testing on Push and Pull Requests.
 -   Implements the rest of the tests for the ToDoService Unit Tests
 -   Implemented the rest of the tests for the CategoryService Unit Test
+
+### 4/9/2024 - Testing ToDo Continued
+
+-   Implemented the test for Delete and Update for the ToDo End to End tests
 
 ---
 
