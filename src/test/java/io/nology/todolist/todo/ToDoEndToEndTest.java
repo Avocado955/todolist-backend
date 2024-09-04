@@ -18,6 +18,7 @@ import io.nology.todolist.todos.CreateToDosDTO;
 import io.nology.todolist.todos.ToDo;
 import io.nology.todolist.todos.ToDosRepository;
 import io.nology.todolist.todos.ToDosService;
+import io.nology.todolist.todos.UpdateToDosDTO;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
@@ -136,4 +137,53 @@ public class ToDoEndToEndTest {
         .contentType(ContentType.TEXT)
         .body(containsString("Could not find ToDo with id: 3"));
   }
+
+  @Test
+  public void updateToDoById_success() {
+    UpdateToDosDTO data = new UpdateToDosDTO();
+    data.setTask("new updated task name");
+    data.setIsCompleted(1);
+    data.setCategoryId(1L);
+    given()
+        .contentType(ContentType.JSON)
+        .body(data)
+        .when()
+        .patch("/todos/2")
+        .then()
+        .statusCode(HttpStatus.OK.value())
+        .body("task", equalTo("new updated task name"))
+        .body("isCompleted", equalTo(true))
+        .body("id", notNullValue());
+  }
+
+  @Test
+  public void updateToDoById_fails_invalidId() {
+    UpdateToDosDTO data = new UpdateToDosDTO();
+    data.setIsCompleted(0);
+    given()
+        .contentType(ContentType.JSON)
+        .body(data)
+        .when()
+        .patch("/todos/3")
+        .then()
+        .statusCode(HttpStatus.NOT_FOUND.value())
+        .contentType(ContentType.TEXT)
+        .body(containsString("ToDo not found with id: 3"));
+  }
+
+  @Test
+  public void updateToDoById_fails_invalidCategoryId() {
+    UpdateToDosDTO data = new UpdateToDosDTO();
+    data.setIsCompleted(0);
+    data.setCategoryId(3L);
+    given()
+        .contentType(ContentType.JSON)
+        .body(data)
+        .when()
+        .patch("/todos/2")
+        .then()
+        .statusCode(HttpStatus.BAD_REQUEST.value())
+        .body("errors.category[0]", equalTo("Category with id 3 does not exist"));
+  }
+
 }

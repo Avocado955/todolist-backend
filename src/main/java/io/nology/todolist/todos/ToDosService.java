@@ -62,7 +62,7 @@ public class ToDosService {
     if (data.getCategoryId() != null) {
       Optional<Category> categoryResult = this.categoryService.findById(data.getCategoryId());
       if (categoryResult.isEmpty()) {
-        errors.addError("category", String.format("Category with id %s fors not exist", data.getCategoryId()));
+        errors.addError("category", String.format("Category with id %s does not exist", data.getCategoryId()));
       } else {
         foundToDo.setCategory(categoryResult.get());
       }
