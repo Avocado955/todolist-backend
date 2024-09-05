@@ -41,4 +41,9 @@ public class CreateToDosDTO {
     this.isCompleted = isCompleted;
   }
 
+  @Override
+  public String toString() {
+    return "CreateToDosDTO [task=" + task + ", categoryId=" + categoryId + ", isCompleted=" + isCompleted + "]";
+  }
+
 }
