@@ -161,7 +161,7 @@ public class ToDoServiceUnitTest {
     Long id = 1L;
     UpdateToDosDTO data = new UpdateToDosDTO();
     data.setCategoryId(id);
-    data.setIsCompleted(0);
+    data.setIsCompleted(false);
     data.setTask("testing");
     ToDo mockToDo = new ToDo();
     mockToDo.setTask("something like this");

@@ -113,6 +113,10 @@ Create an API to be integrated with your To Do UI project, that allows you to st
 
 -   Implemented the test for Delete and Update for the ToDo End to End tests
 
+### 5/9/2024 - Refactor
+
+-   Changed isCompleted to be a boolean everywhere instead of being a integar for the DTOs of ToDo
+
 ---
 
 ## What did you struggle with?

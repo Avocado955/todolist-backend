@@ -140,7 +140,7 @@ public class ToDoEndToEndTest {
   public void updateToDoById_success() {
     UpdateToDosDTO data = new UpdateToDosDTO();
     data.setTask("new updated task name");
-    data.setIsCompleted(1);
+    data.setIsCompleted(true);
     data.setCategoryId(1L);
     given()
         .contentType(ContentType.JSON)
@@ -157,7 +157,7 @@ public class ToDoEndToEndTest {
   @Test
   public void updateToDoById_fails_invalidId() {
     UpdateToDosDTO data = new UpdateToDosDTO();
-    data.setIsCompleted(0);
+    data.setIsCompleted(false);
     given()
         .contentType(ContentType.JSON)
         .body(data)
@@ -172,7 +172,7 @@ public class ToDoEndToEndTest {
   @Test
   public void updateToDoById_fails_invalidCategoryId() {
     UpdateToDosDTO data = new UpdateToDosDTO();
-    data.setIsCompleted(0);
+    data.setIsCompleted(false);
     data.setCategoryId(3L);
     given()
         .contentType(ContentType.JSON)

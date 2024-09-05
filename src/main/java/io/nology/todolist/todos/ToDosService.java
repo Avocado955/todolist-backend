@@ -57,7 +57,7 @@ public class ToDosService {
       foundToDo.setTask(data.getTask().trim());
     }
     if (data.getIsCompleted() != null) {
-      foundToDo.setIsCompleted(data.getIsCompletedBoolean());
+      foundToDo.setIsCompleted(data.getIsCompleted());
     }
     if (data.getCategoryId() != null) {
       Optional<Category> categoryResult = this.categoryService.findById(data.getCategoryId());

@@ -30,7 +30,7 @@ public class ToDo extends BaseEntity {
 
   @ManyToOne
   @JoinColumn(name = "category_id")
-  @JsonIgnoreProperties("todos") // Change this eventually to a many to one (one category can have many ToDos)
+  @JsonIgnoreProperties("todos")
   private Category category;
 
   @Column

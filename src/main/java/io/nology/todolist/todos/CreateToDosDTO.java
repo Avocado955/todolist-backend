@@ -2,7 +2,6 @@ package io.nology.todolist.todos;
 
 import org.hibernate.validator.constraints.Length;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,9 +15,7 @@ public class CreateToDosDTO {
   @Min(1)
   private Long categoryId;
 
-  @NotNull
-  @Max(1)
-  private Integer isCompleted;
+  private Boolean isCompleted;
 
   public String getTask() {
     return this.task;
@@ -29,7 +26,7 @@ public class CreateToDosDTO {
   }
 
   public boolean getIsCompleted() {
-    return this.isCompleted == 0 ? false : true;
+    return this.isCompleted;
   }
 
   public void setTask(String task) {
@@ -41,10 +38,7 @@ public class CreateToDosDTO {
   }
 
   public void setIsCompleted(boolean isCompleted) {
-    if (isCompleted == false) {
-      this.isCompleted = 0;
-    }
-    this.isCompleted = 1;
+    this.isCompleted = isCompleted;
   }
 
 }
