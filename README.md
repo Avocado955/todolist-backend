@@ -118,6 +118,11 @@ Create an API to be integrated with your To Do UI project, that allows you to st
 -   Changed isCompleted to be a boolean everywhere instead of being a integar for the DTOs of ToDo
 -   Fixed issue with isCompleted being null due to slight variable name on front end
 
+### 6/9/2024
+
+-   Implements deleteById on the Category service and controller
+-   Adds Unit and End to End tests for the deleteCategory success and fail
+
 ---
 
 ## What did you struggle with?

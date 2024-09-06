@@ -13,7 +13,7 @@ import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+// import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -46,9 +46,9 @@ public class CategoryEndToEndTest {
         .statusCode(HttpStatus.OK.value())
         .body("$", hasSize(2))
         .body("name", hasItems("code", "art"));
-        //Schema causes an error with the Github actions testing
-        // This schema is for when we get an array of objects back
-        // .body(matchesJsonSchemaInClasspath("io/nology/todolist/category/schemas/categories-schema.json"))
+    // Schema causes an error with the Github actions testing
+    // This schema is for when we get an array of objects back
+    // .body(matchesJsonSchemaInClasspath("io/nology/todolist/category/schemas/categories-schema.json"))
   }
 
   @Test
@@ -65,8 +65,8 @@ public class CategoryEndToEndTest {
         .statusCode(HttpStatus.CREATED.value())
         .body("name", equalTo("new category"))
         .body("id", notNullValue());
-        // This schema is for when we get only one object back which is the Category
-        // .body(matchesJsonSchemaInClasspath("io/nology/todolist/category/schemas/category-schema.json"));
+    // This schema is for when we get only one object back which is the Category
+    // .body(matchesJsonSchemaInClasspath("io/nology/todolist/category/schemas/category-schema.json"));
 
     // Check this category is in find all
     given()
@@ -91,5 +91,25 @@ public class CategoryEndToEndTest {
         .then()
         .statusCode(HttpStatus.BAD_REQUEST.value())
         .body("errors.category[0]", equalTo("Category with name code already exists"));
+  }
+
+  @Test
+  public void deleteCategory_success() {
+    given()
+        .when()
+        .delete("/categories/1")
+        .then()
+        .statusCode(HttpStatus.NO_CONTENT.value());
+  }
+
+  @Test
+  public void deleteCategory_failure() {
+    given()
+        .when()
+        .delete("/categories/3")
+        .then()
+        .statusCode(HttpStatus.NOT_FOUND.value())
+        .contentType(ContentType.TEXT)
+        .body(containsString("Could not find Category with id: 3"));
   }
 }

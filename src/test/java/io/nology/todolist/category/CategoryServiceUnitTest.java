@@ -8,6 +8,8 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
 import io.nology.todolist.common.exceptions.ServiceValidationException;
+import io.nology.todolist.todos.ToDo;
 
 public class CategoryServiceUnitTest {
   @Mock
@@ -73,6 +76,36 @@ public class CategoryServiceUnitTest {
     // then
     assertThrows(ServiceValidationException.class, () -> categoryService.create(mockDTO));
     verify(repo, never()).save(any());
+  }
+
+  @Test
+  void deleteCategory_success() {
+    // given
+    Long id = 1L;
+    Category mockCategory = new Category();
+    Optional<Category> findResult = Optional.of(mockCategory);
+
+    // when
+    when(repo.findById(id)).thenReturn(findResult);
+
+    // then
+    Boolean result = categoryService.deleteById(id);
+    assertEquals(true, result);
+    verify(repo).delete(mockCategory);
+  }
+
+  @Test
+  void deleteCategory_failure() {
+    Long id = 1L;
+    Optional<Category> findResult = Optional.empty();
+
+    // when
+    when(repo.findById(id)).thenReturn(findResult);
+
+    // then
+    Boolean result = categoryService.deleteById(id);
+    assertEquals(false, result);
+    verify(repo, never()).delete(any());
   }
 
 }
