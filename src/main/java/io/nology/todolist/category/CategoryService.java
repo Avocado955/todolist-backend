@@ -52,6 +52,30 @@ public class CategoryService {
     return Optional.empty();
   }
 
+  public Optional<Category> updateCategoryById(Long id, @Valid UpdateCategoryDTO data) throws Exception {
+    Optional<Category> result = this.findById(id);
+    if (result.isEmpty()) {
+      return result;
+    }
+    Category foundCategory = result.get();
+    ValidationErrors errors = new ValidationErrors();
+    String formattedName = data.getName().trim().toLowerCase();
+    if (data.getName() != null) {
+      // might not need the check if its put, but also want to make sure it doesnt add
+      // an extra if this one isnt the name its replacing
+      if (this.repo.existsByName(formattedName)) {
+        errors.addError("Category", "Category with name: " + data.getName() + " already exists");
+      } else {
+        foundCategory.setName(formattedName);
+      }
+    }
+    if (errors.hasErrors()) {
+      throw new ServiceValidationException(errors);
+    }
+    Category updatedCategory = this.repo.save(foundCategory);
+    return Optional.of(updatedCategory);
+  }
+
   public boolean deleteById(Long id) {
     Optional<Category> result = this.findById(id);
     if (result.isEmpty()) {

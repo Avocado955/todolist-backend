@@ -1,6 +1,7 @@
 package io.nology.todolist.todos;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("todos")
@@ -44,6 +46,15 @@ public class ToDosController {
     return new ResponseEntity<>(foundPost, HttpStatus.OK);
   }
 
+  // Test this tomorrow
+  // Write up tests for this
+  @GetMapping()
+  public ResponseEntity<List<ToDo>> getToDoByIdWithParam(@RequestParam Map<String, String> qparams) throws Exception {
+    List<ToDo> result = this.toDosService.findTodosWithCategory(qparams);
+    return new ResponseEntity<>(result, HttpStatus.OK);
+  }
+
+  // Write up tests for this
   @PatchMapping("/{id}")
   public ResponseEntity<ToDo> updateToDoById(@PathVariable Long id, @Valid @RequestBody UpdateToDosDTO data)
       throws Exception {

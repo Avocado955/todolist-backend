@@ -123,6 +123,12 @@ Create an API to be integrated with your To Do UI project, that allows you to st
 -   Implements deleteById on the Category service and controller
 -   Adds Unit and End to End tests for the deleteCategory success and fail
 
+### 7/9/2024
+
+-   Implements updateById on the Category service and controller
+-   Implements get with query parameters on the Todo service, controller and repository
+
+
 ---
 
 ## What did you struggle with?

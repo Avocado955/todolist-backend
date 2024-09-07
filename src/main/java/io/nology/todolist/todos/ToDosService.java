@@ -1,6 +1,7 @@
 package io.nology.todolist.todos;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,14 @@ public class ToDosService {
 
   public List<ToDo> findAll() {
     return this.repo.findAll();
+  }
+
+  // Test this tomorrow
+  public List<ToDo> findTodosWithCategory(Map<String, String> qparams) {
+    String categoryName = qparams.get("category");
+    Optional<Category> foundCategory = this.categoryService.getCategoryByName(categoryName);
+    Category searchCategory = foundCategory.get();
+    return this.repo.findTodosWithCategory(searchCategory);
   }
 
   public Optional<ToDo> findById(Long id) {
